@@ -1,5 +1,5 @@
 // load modules
-const x = require("dotenv").config();
+require("dotenv").config();
 const keys = require('./keys.js');
 const Twitter = require('twitter');
 const Spotify = require('node-spotify-api');
@@ -50,7 +50,7 @@ function showTweets() {
 }
 
 // Spotify -------------------
-function spotifySong(input) {
+function spotifySong(input = "The Sign Ace of Base") {
     const spotify = new Spotify(keys.spotifyKeys);
 
     spotify.search({ type: 'track', query: input }, function (err, data) {
@@ -69,7 +69,7 @@ function spotifySong(input) {
 }
 
 // OMDb Movies ---------------
-function movieThis(input) {
+function movieThis(input = "Mr Nobody") {
     const apikey = keys.omdbKey;
 
     const queryUrl = 'http://www.omdbapi.com/?apikey=' + apikey + '&t=' + input + '&y=&plot=short&r=json';
@@ -87,8 +87,6 @@ function movieThis(input) {
             console.log('Language: ' + jsonData.Language);
             console.log('Plot: ' + jsonData.Plot);
             console.log('Actors: ' + jsonData.Actors);
-        } else if (!input) {
-            movieThis("Mr. Nobody");
         }
     });
 }
